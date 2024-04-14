@@ -7,13 +7,36 @@ import 'package:provider/provider.dart';
 import 'package:markdown_widget/markdown_widget.dart';
 import 'package:flutter_highlight/themes/github.dart';
 
-class NoteDetail extends StatelessWidget {
+class NoteDetail extends StatefulWidget {
+  NoteDetail({super.key});
+
+  @override
+  State<NoteDetail> createState() => _NoteDetailState();
+}
+
+class _NoteDetailState extends State<NoteDetail> {
   // These TextEditingControllers are used to get and set the note's
-  // title and text
   final TextEditingController noteTitleController = TextEditingController();
   final TextEditingController noteTextController = TextEditingController();
 
-  NoteDetail({super.key});
+  @override
+  void initState() {
+    super.initState();
+    // noteTitleController.addListener(_doSomething);
+  }
+
+  @override
+  void dispose() {
+    noteTextController.dispose();
+    noteTitleController.dispose();
+    super.dispose();
+  }
+
+  // void _doSomething() {
+  //   print('_doSomething called');
+  //   noteTitleController.text = context.read<Data>().selectedNote.title;
+  //   // context.read<Data>().update();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -60,16 +83,11 @@ class NoteDetail extends StatelessWidget {
                       bottom: 15,
                     ),
                     child: TextField(
-                        controller: noteTitleController,
-                        style: Theme.of(context).textTheme.titleLarge!,
-                        maxLines: 1,
-                        onChanged: (value) {
-                          var position =
-                              noteTitleController.selection.base.offset;
-                          // context.read<Data>().update(title: value);
-                          noteTitleController.selection = TextSelection(
-                              baseOffset: position, extentOffset: position);
-                        }),
+                      controller: noteTitleController,
+                      style: Theme.of(context).textTheme.titleLarge!,
+                      maxLines: 1,
+                      onChanged: (value) {},
+                    ),
                   ),
 
                   // Note Text TextField---------------------------------
@@ -94,6 +112,9 @@ class NoteDetail extends StatelessWidget {
                         border: InputBorder.none,
                         fillColor: Colors.white,
                       ),
+                      onChanged: (value) {
+                        // context.read<Data>().changeButtonColor();
+                      },
                     ),
                   ),
 
@@ -104,7 +125,8 @@ class NoteDetail extends StatelessWidget {
                       bottom: 15,
                     ),
                     child: ElevatedButton(
-                      child: Text('Save'),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: context.watch<Data>().buttonColor),
                       onPressed: () async {
                         selNote = context.read<Data>().selectedNote;
 
@@ -122,6 +144,7 @@ class NoteDetail extends StatelessWidget {
                               .update(title: title, content: content);
                         }
                       },
+                      child: Text('Save'),
                     ),
                   ),
                 ],

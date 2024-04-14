@@ -13,7 +13,16 @@ class Data extends ChangeNotifier {
     showList = !showList;
     notifyListeners();
   }
-  // ----------showList----------
+  // ----------showList-----------
+
+  //-----------Save button color--
+  Color buttonColor = Colors.white;
+  void changeButtonColor() {
+    buttonColor = Colors.blue;
+    notifyListeners();
+  }
+
+  //-----------Save button color--
 
   // ----------json--------------
   List<Note> notes = [];
@@ -28,9 +37,9 @@ class Data extends ChangeNotifier {
   }
 
   void newNote() {
-    var note = Note('','');
+    var note = Note('', '');
     notes.add(note);
-    selectedNote=note;
+    selectedNote = note;
     notifyListeners();
   }
 

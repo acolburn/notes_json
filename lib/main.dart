@@ -61,7 +61,7 @@ class MyHomePage extends StatelessWidget {
                 ),
                 Container(
                   width: 1,
-                  color: YaruColors.blue,
+                  color: Colors.blue,
                 ),
                 Expanded(
                   flex: 3,

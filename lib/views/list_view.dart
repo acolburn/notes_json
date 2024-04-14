@@ -30,6 +30,7 @@ class NoteList extends StatelessWidget {
                 }),
             onTap: () {
               context.read<Data>().selIndex(index);
+              context.read<Data>().buttonColor = Colors.white;
             },
           );
         },
