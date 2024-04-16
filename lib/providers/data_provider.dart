@@ -52,7 +52,7 @@ class Data extends ChangeNotifier {
     }
   }
 
-  void selIndex(index) {
+  void selectIndex(index) {
     selectedNote = notes[index];
     notifyListeners();
   }

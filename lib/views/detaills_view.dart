@@ -17,7 +17,7 @@ class NoteDetail extends StatefulWidget {
 class _NoteDetailState extends State<NoteDetail> {
   // These TextEditingControllers are used to get and set the note's
   final TextEditingController noteTitleController = TextEditingController();
-  final TextEditingController noteTextController = TextEditingController();
+  final TextEditingController noteContentController = TextEditingController();
 
   @override
   void initState() {
@@ -27,7 +27,7 @@ class _NoteDetailState extends State<NoteDetail> {
 
   @override
   void dispose() {
-    noteTextController.dispose();
+    noteContentController.dispose();
     noteTitleController.dispose();
     super.dispose();
   }
@@ -54,7 +54,7 @@ class _NoteDetailState extends State<NoteDetail> {
     // selNote == null
     //     ? noteTextController.text = ''
     //     : noteTextController.text = selNote.content;
-    noteTextController.text = selNote.content;
+    noteContentController.text = selNote.content;
 
     return DefaultTabController(
       // Two tabs, one for the Edit screen, one for the markdown Preview screen
@@ -97,7 +97,7 @@ class _NoteDetailState extends State<NoteDetail> {
                       bottom: 15,
                     ),
                     child: TextField(
-                      controller: noteTextController,
+                      controller: noteContentController,
                       // keyboardType and maxLines properties allow
                       // infinitely large amounts of text
                       keyboardType: TextInputType.multiline,
@@ -129,7 +129,7 @@ class _NoteDetailState extends State<NoteDetail> {
                         selNote = context.read<Data>().selectedNote;
 
                         var title = noteTitleController.text;
-                        var content = noteTextController.text;
+                        var content = noteContentController.text;
                         // If this is a new note ... create it
                         if (selNote == null) {
                           context.read<Data>().add(title, content);
@@ -173,7 +173,7 @@ class _NoteDetailState extends State<NoteDetail> {
                   Expanded(
                     child: VerticalSplitView(
                       left: MarkdownWidget(
-                        data: noteTextController.text,
+                        data: noteContentController.text,
                         config: MarkdownConfig(
                           configs: [
                             PreConfig(theme: githubTheme),
