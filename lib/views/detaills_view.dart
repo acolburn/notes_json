@@ -22,7 +22,6 @@ class _NoteDetailState extends State<NoteDetail> {
   @override
   void initState() {
     super.initState();
-    // noteTitleController.addListener(_doSomething);
   }
 
   @override
@@ -32,29 +31,12 @@ class _NoteDetailState extends State<NoteDetail> {
     super.dispose();
   }
 
-  // void _doSomething() {
-  //   print('_doSomething called');
-  //   noteTitleController.text = context.read<Data>().selectedNote.title;
-  //   // context.read<Data>().update();
-  // }
-
   @override
   Widget build(BuildContext context) {
     final tocController = TocController();
-    Note? selNote = context.watch<Data>().selectedNote;
-
-    // If we're creating a new note, then the page
-    // should be blank. If we're displaying an existing note, this code
-    // sets the note's title and text.
-    // selNote == null
-    //     ? noteTitleController.text = ''
-    //     : noteTitleController.text = selNote.title;
-    noteTitleController.text = selNote.title;
-
-    // selNote == null
-    //     ? noteTextController.text = ''
-    //     : noteTextController.text = selNote.content;
-    noteContentController.text = selNote.content;
+    Note? selectedNote = context.read<Data>().selectedNote;
+    noteTitleController.text = selectedNote.title;
+    noteContentController.text = selectedNote.content;
 
     return DefaultTabController(
       // Two tabs, one for the Edit screen, one for the markdown Preview screen
@@ -112,9 +94,7 @@ class _NoteDetailState extends State<NoteDetail> {
                         border: InputBorder.none,
                         fillColor: Colors.white,
                       ),
-                      onChanged: (value) {
-                        // context.read<Data>().changeButtonColor();
-                      },
+                      onChanged: (value) {},
                     ),
                   ),
 
@@ -125,22 +105,15 @@ class _NoteDetailState extends State<NoteDetail> {
                       bottom: 15,
                     ),
                     child: ElevatedButton(
-                      onPressed: () async {
-                        selNote = context.read<Data>().selectedNote;
-
+                      onPressed: () {
                         var title = noteTitleController.text;
                         var content = noteContentController.text;
-                        // If this is a new note ... create it
-                        if (selNote == null) {
-                          context.read<Data>().add(title, content);
-                        } else {
-                          // If this is an already existing note ... update it
-                          selNote!.title = title;
-                          selNote!.content = content;
-                          context
-                              .read<Data>()
-                              .update(title: title, content: content);
-                        }
+                        // Update (and save) note
+                        selectedNote.title = title;
+                        selectedNote.content = content;
+                        context
+                            .read<Data>()
+                            .update(title: title, content: content);
                       },
                       child: Text('Save'),
                     ),
