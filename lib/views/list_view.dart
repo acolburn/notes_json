@@ -29,7 +29,7 @@ class NoteList extends StatelessWidget {
                   context.read<Data>().delete(index);
                 }),
             onTap: () {
-              context.read<Data>().selIndex(index);
+              context.read<Data>().selectIndex(index);
             },
           );
         },
