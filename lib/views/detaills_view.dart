@@ -125,8 +125,6 @@ class _NoteDetailState extends State<NoteDetail> {
                       bottom: 15,
                     ),
                     child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: context.watch<Data>().buttonColor),
                       onPressed: () async {
                         selNote = context.read<Data>().selectedNote;
 

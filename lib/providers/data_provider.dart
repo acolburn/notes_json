@@ -15,15 +15,6 @@ class Data extends ChangeNotifier {
   }
   // ----------showList-----------
 
-  //-----------Save button color--
-  Color buttonColor = Colors.white;
-  void changeButtonColor() {
-    buttonColor = Colors.blue;
-    notifyListeners();
-  }
-
-  //-----------Save button color--
-
   // ----------json--------------
   List<Note> notes = [];
   Note selectedNote = Note('', '');
