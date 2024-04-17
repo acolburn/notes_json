@@ -50,6 +50,17 @@ class _NoteDetailState extends State<NoteDetail> {
               Tab(text: 'Preview'),
             ],
           ),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.save_sharp),
+              onPressed: () {
+                var data = context.read<Data>();
+                data.update(
+                    title: data.selectedNote.title,
+                    content: data.selectedNote.content);
+              },
+            ),
+          ],
         ),
         body: TabBarView(
           children: [
@@ -68,7 +79,9 @@ class _NoteDetailState extends State<NoteDetail> {
                       controller: noteTitleController,
                       style: Theme.of(context).textTheme.titleLarge!,
                       maxLines: 1,
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        selectedNote.title = value;
+                      },
                     ),
                   ),
 
@@ -94,7 +107,9 @@ class _NoteDetailState extends State<NoteDetail> {
                         border: InputBorder.none,
                         fillColor: Colors.white,
                       ),
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        selectedNote.content = value;
+                      },
                     ),
                   ),
 
@@ -105,6 +120,11 @@ class _NoteDetailState extends State<NoteDetail> {
                       bottom: 15,
                     ),
                     child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey[200],
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                      ),
                       onPressed: () {
                         var title = noteTitleController.text;
                         var content = noteContentController.text;
