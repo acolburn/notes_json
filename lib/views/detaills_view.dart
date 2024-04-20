@@ -35,8 +35,8 @@ class _NoteDetailState extends State<NoteDetail> {
   Widget build(BuildContext context) {
     final tocController = TocController();
     Note? selectedNote = context.read<Data>().selectedNote;
-    noteTitleController.text = selectedNote.title;
-    noteContentController.text = selectedNote.content;
+    // noteTitleController.text = selectedNote.title;
+    // noteContentController.text = selectedNote.content;
 
     return DefaultTabController(
       // Two tabs, one for the Edit screen, one for the markdown Preview screen
@@ -69,48 +69,25 @@ class _NoteDetailState extends State<NoteDetail> {
               margin: const EdgeInsets.all(18),
               child: ListView(
                 children: [
-                  // Note Title TextField---------------------------------
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: 15,
-                      bottom: 15,
-                    ),
-                    child: TextField(
-                      controller: noteTitleController,
-                      style: Theme.of(context).textTheme.titleLarge!,
-                      maxLines: 1,
-                      onChanged: (value) {
-                        selectedNote.title = value;
-                      },
-                    ),
+                  // Note's Title TextField---------------------------------
+                  NoteTextField(
+                    displayText: selectedNote.title,
+                    controller: noteTitleController,
+                    onChanged: (value) {
+                      // selectedNote.title = value;
+                      context.read<Data>().update(title: value);
+                    },
+                    minLines: 1,
+                    style: Theme.of(context).textTheme.titleLarge!,
                   ),
-
-                  // Note Text TextField---------------------------------
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: 15,
-                      bottom: 15,
-                    ),
-                    child: TextField(
-                      controller: noteContentController,
-                      // keyboardType and maxLines properties allow
-                      // infinitely large amounts of text
-                      keyboardType: TextInputType.multiline,
-                      maxLines: null,
-                      // minLines assures textfield will have 10 blank
-                      // lines initially, instead of just 1, so it looks more
-                      // like a memo field
-                      minLines: 10,
-                      // Getting rid of the normal border line under the
-                      // TextField. Looks more like what I expect.
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        fillColor: Colors.white,
-                      ),
-                      onChanged: (value) {
-                        selectedNote.content = value;
-                      },
-                    ),
+                  // Note's Content TextField---------------------------------
+                  NoteTextField(
+                    displayText: selectedNote.content,
+                    controller: noteContentController,
+                    onChanged: (value) {
+                      selectedNote.content = value;
+                    },
+                    minLines: 10,
                   ),
 
                   // Save Button------------------------------------------
@@ -183,6 +160,53 @@ class _NoteDetailState extends State<NoteDetail> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class NoteTextField extends StatelessWidget {
+  const NoteTextField(
+      {super.key,
+      required this.displayText,
+      required this.controller,
+      required this.onChanged,
+      required this.minLines,
+      this.style});
+
+  final String displayText;
+  final TextEditingController controller;
+  final Function(String) onChanged;
+  final int minLines;
+  final TextStyle? style;
+
+  @override
+  Widget build(BuildContext context) {
+    controller.text = displayText;
+    return Padding(
+      padding: EdgeInsets.only(
+        top: 15,
+        bottom: 15,
+      ),
+      child: TextField(
+        controller: controller,
+        style: style,
+        // keyboardType and maxLines properties allow
+        // infinitely large amounts of text
+        keyboardType: TextInputType.multiline,
+        // minLines assures content field will have 10 blank
+        // lines initially, text field will have 1, so they look as expected
+        minLines: minLines,
+        // maxLines allows unlimted number of lines, with scrollbar,
+        // like typical window memo field
+        maxLines: null,
+        onChanged: onChanged,
+        // Getting rid of the normal border line under the
+        // TextField. Looks more like what I expect.
+        // decoration: InputDecoration(
+        //   border: InputBorder.none,
+        //   fillColor: Colors.white,
+        // ),
       ),
     );
   }
