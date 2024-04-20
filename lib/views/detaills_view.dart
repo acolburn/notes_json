@@ -74,8 +74,8 @@ class _NoteDetailState extends State<NoteDetail> {
                     displayText: selectedNote.title,
                     controller: noteTitleController,
                     onChanged: (value) {
-                      // selectedNote.title = value;
-                      context.read<Data>().update(title: value);
+                      selectedNote.title = value;
+                      // context.read<Data>().update(title: value);
                     },
                     minLines: 1,
                     style: Theme.of(context).textTheme.titleLarge!,

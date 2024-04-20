@@ -11,7 +11,7 @@ class NoteList extends StatelessWidget {
     // Using Scaffold so I can have a FAB
     return Scaffold(
       body: ListView.builder(
-        itemCount: context.watch<Data>().notes.length,
+        itemCount: context.read<Data>().notes.length,
         itemBuilder: (context, index) {
           return ListTile(
             tileColor: Colors.grey[200],
