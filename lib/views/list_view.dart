@@ -16,11 +16,11 @@ class NoteList extends StatelessWidget {
           return ListTile(
             tileColor: Colors.grey[200],
             title: Text(
-              context.watch<Data>().notes[index].title,
+              context.read<Data>().notes[index].title,
               maxLines: 1,
             ),
             subtitle: Text(
-              context.watch<Data>().notes[index].content,
+              context.read<Data>().notes[index].content,
               maxLines: 2,
             ),
             trailing: IconButton(
