@@ -60,6 +60,33 @@ class _NoteDetailState extends State<NoteDetail> {
                     content: data.selectedNote.content);
               },
             ),
+            IconButton(
+              icon: const Icon(Icons.info_outline),
+              onPressed: () {
+                // var words = selectedNote.content.split(' ');
+                // var wordCount = words.length;
+                // Code below was more accurate at countin words
+                var regExp = RegExp(r"\w+(\'\w+)?");
+                int wordCount = regExp.allMatches(selectedNote.content).length;
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Document Info'),
+                      content: Text('Word Count: $wordCount'),
+                      actions: [
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text('Close'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+            ),
           ],
         ),
         body: TabBarView(
