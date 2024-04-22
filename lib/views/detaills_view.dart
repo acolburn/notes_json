@@ -66,8 +66,19 @@ class _NoteDetailState extends State<NoteDetail> {
                 // var words = selectedNote.content.split(' ');
                 // var wordCount = words.length;
                 // Code below was more accurate at countin words
-                var regExp = RegExp(r"\w+(\'\w+)?");
-                int wordCount = regExp.allMatches(selectedNote.content).length;
+                // var regExp = RegExp(r"\w+(\'\w+)?");
+                // int wordCount = regExp.allMatches(selectedNote.content).length;
+
+                // Split the text by spaces, punctuation, and line breaks
+                List<String> words =
+                    selectedNote.content.split(RegExp(r'\s+|,|\.|\?|\!'));
+
+                // Filter out empty strings
+                words = words.where((word) => word.isNotEmpty).toList();
+
+                // Return the count of words
+                int wordCount = words.length;
+
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
