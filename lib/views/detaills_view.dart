@@ -65,9 +65,7 @@ class _NoteDetailState extends State<NoteDetail> {
               onPressed: () {
                 // var words = selectedNote.content.split(' ');
                 // var wordCount = words.length;
-                // Code below was more accurate at countin words
-                // var regExp = RegExp(r"\w+(\'\w+)?");
-                // int wordCount = regExp.allMatches(selectedNote.content).length;
+                // Code below was more accurate at counting words
 
                 // Split the text by spaces, punctuation, and line breaks
                 List<String> words =
