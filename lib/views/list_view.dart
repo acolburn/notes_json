@@ -34,13 +34,6 @@ class NoteList extends StatelessWidget {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(YaruIcons.plus),
-        onPressed: () {
-          context.read<Data>().newNote();
-        },
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
