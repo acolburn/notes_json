@@ -41,11 +41,39 @@ class MyHomePage extends StatelessWidget {
     context.read<Data>().readJson();
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(YaruIcons.sidebar),
-          onPressed: () {
-            context.read<Data>().changeDisplay();
-          },
+        leadingWidth: 650,
+        leading: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            TextButton.icon(
+                icon: const Icon(Icons.menu),
+                onPressed: () {},
+                label: Text('Toggle Notebooks')),
+            TextButton.icon(
+              icon: const Icon(
+                YaruIcons.sidebar,
+              ),
+              onPressed: () {
+                context.read<Data>().changeDisplay();
+                // setState(() {
+                //   showList = !showList;
+                // });
+              },
+              label: Text("Toggle Sidebar"),
+            ),
+            TextButton.icon(
+              icon: const Icon(Icons.note_add_outlined),
+              onPressed: () {
+                context.read<Data>().newNote();
+              },
+              label: Text("New Note"),
+            ),
+            TextButton.icon(
+              icon: const Icon(Icons.library_books_outlined),
+              onPressed: () {},
+              label: Text('New Notebook'),
+            ),
+          ],
         ),
       ),
       body: LayoutBuilder(
